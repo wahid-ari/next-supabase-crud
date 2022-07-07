@@ -69,18 +69,18 @@ export default function Home() {
 
           <nav className="flex justify-between mb-8 gap-x-4">
             <Link href="/">
-              <span className="text-blue-500 hover:text-blue-600 font-medium transition-all hover:cursor-pointer">Songs</span>
+              <a className="text-blue-500 hover:text-blue-600 font-medium transition-all hover:cursor-pointer">Songs</a>
             </Link>
             <Link href="/artists">
-              <span className="text-blue-500 hover:text-blue-600 font-medium transition-all hover:cursor-pointer">Artists</span>
+              <a className="text-blue-500 hover:text-blue-600 font-medium transition-all hover:cursor-pointer">Artists</a>
             </Link>
             {isLoggedIn ?
               <Link href="/logout">
-                <span className="text-blue-500 hover:text-blue-600 font-medium transition-all hover:cursor-pointer">Logout</span>
+                <a className="bg-red-500 px-2.5 py-0.5 text-white rounded hover:bg-red-600 text-sm  font-medium transition-all hover:cursor-pointer">Logout</a>
               </Link>
               :
               <Link href="/login">
-                <span className="text-blue-500 hover:text-blue-600 font-medium transition-all hover:cursor-pointer">Login</span>
+                <a className="bg-green-500 px-2.5 py-0.5 text-white rounded hover:bg-green-600 text-sm font-medium transition-all hover:cursor-pointer">Login</a>
               </Link>
             }
             <div onClick={() => setDarkMode(!darkMode)} className="transition-all cursor-pointer w-12 h-7 dark:bg-blue-500 bg-neutral-200 rounded-full relative">

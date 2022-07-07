@@ -56,10 +56,10 @@ export default function Login() {
 
           <nav className="flex justify-between mb-8 gap-x-4">
             <Link href="/">
-              <span className="text-blue-500 hover:text-blue-600 font-medium transition-all hover:cursor-pointer">Songs</span>
+              <a className="text-blue-500 hover:text-blue-600 font-medium transition-all hover:cursor-pointer">Songs</a>
             </Link>
             <Link href="/artists">
-              <span className="text-blue-500 hover:text-blue-600 font-medium transition-all hover:cursor-pointer">Artists</span>
+              <a className="text-blue-500 hover:text-blue-600 font-medium transition-all hover:cursor-pointer">Artists</a>
             </Link>
             <div onClick={() => setDarkMode(!darkMode)} className="transition-all cursor-pointer w-12 h-7 dark:bg-blue-500 bg-neutral-200 rounded-full relative">
               <div className="h-5 w-5 bg-white rounded-full absolute top-1 transition-all dark:left-6 left-1"></div>
