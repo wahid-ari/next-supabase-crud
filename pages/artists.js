@@ -50,6 +50,15 @@ export default function Artists() {
     setFetched(true)
   }
 
+  async function deleteArtist(id) {
+    const { data, error } = await supabase.from('artist').delete().eq('id', id);
+    // console.log(data)
+    // console.log(error)
+    if (!error) {
+      setFetched(false)
+    }
+  }
+
   useEffect(() => {
     if (!fetched || !artists) {
       getArtists();
@@ -80,7 +89,7 @@ export default function Artists() {
               </Link>
               :
               <Link href="/login">
-                <a className="bg-green-500 px-2.5 py-0.5 text-white rounded hover:bg-green-600 text-sm font-medium transition-all hover:cursor-pointer">Login</a>
+                <a className="bg-blue-500 px-2.5 py-0.5 text-white rounded hover:bg-blue-600 text-sm font-medium transition-all hover:cursor-pointer">Login</a>
               </Link>
             }
             <div onClick={() => setDarkMode(!darkMode)} className="transition-all cursor-pointer w-12 h-7 dark:bg-blue-500 bg-neutral-200 rounded-full relative">
@@ -88,37 +97,52 @@ export default function Artists() {
             </div>
           </nav>
 
-          <h1 className="text-neutral-700 dark:text-gray-100 text-2xl font-bold">Artist List</h1>
-          <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="flex items-center justify-between">
+            <h1 className="text-neutral-700 dark:text-gray-100 text-2xl font-bold">Artist List</h1>
+            {isLoggedIn &&
+              <Link href="/add-artist">
+                <a className="bg-green-500 px-2.5 py-1 text-white rounded hover:bg-green-600 text-sm font-medium transition-all hover:cursor-pointer">Add Artist</a>
+              </Link>
+            }
           </div>
 
           <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
             {fetched ?
               artists.map(artist =>
-                <div key={artist.id} className="border dark:border-neutral-800 rounded my-2">
-                  <Link href={`artist/${artist.id}`}>
-                    <div className="group">
-                      <div className="transition duration-300 hover:cursor-pointer">
-                        <div className="relative h-56 md:h-52">
-                          <Image
-                            alt={artist.name}
-                            src={artist.coverUrl}
-                            className="rounded"
-                            layout='fill'
-                          />
-                        </div>
-                        <div className="p-3 flex justify-between">
-                          <div>
-                            <h2 className="text-md sm:text-lg font-medium dark:text-white text-neutral-800 group-hover:text-blue-500 transition duration-300">{artist.name}</h2>
-                            <p className="text-sm sm:text-base text-neutral-700 dark:text-gray-300 mt-1">{artist.genre}</p>
+                <div key={artist.id}>
+                  <div className="border dark:border-neutral-800 rounded my-2">
+                    <Link href={`artist/${artist.id}`}>
+                      <div className="group">
+                        <div className="transition duration-300 hover:cursor-pointer">
+                          <div className="relative h-56 md:h-52">
+                            <Image
+                              alt={artist.name}
+                              src={artist.coverUrl}
+                              className="rounded"
+                              layout='fill'
+                            />
                           </div>
-                          <div className="flex items-end">
-                            <p className="text-sm  text-neutral-700 dark:text-gray-300">{artist.song.length} song</p>
+                          <div className="p-3 flex justify-between">
+                            <div>
+                              <h2 className="text-md sm:text-lg font-medium dark:text-white text-neutral-800 group-hover:text-blue-500 transition duration-300">{artist.name}</h2>
+                              <p className="text-sm sm:text-base text-neutral-700 dark:text-gray-300 mt-1">{artist.genre}</p>
+                            </div>
+                            <div className="">
+                              <p className="text-sm  text-neutral-700 dark:text-gray-300">{artist.song.length} song</p>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </Link>
+                    </Link>
+                  </div>
+                  {artist.id > 3 && isLoggedIn &&
+                    <>
+                      <Link href={`artist/edit/${artist.id}`}>
+                        <a className="text-white text-xs px-2 py-1 bg-blue-500 hover:bg-blue-600 transition-all rounded font-medium mr-2">Edit</a>
+                      </Link>
+                      <button onClick={() => deleteArtist(artist.id)} className="text-white text-xs px-2 py-1 bg-red-500 hover:bg-red-600 transition-all rounded font-medium">Delete</button>
+                    </>
+                  }
                 </div>
               )
               :

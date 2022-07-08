@@ -50,6 +50,15 @@ export default function Home() {
     setFetched(true)
   }
 
+  async function deleteSong(id) {
+    const { data, error } = await supabase.from('song').delete().eq('id', id);
+    // console.log(data)
+    // console.log(error)
+    if (!error) {
+      setFetched(false)
+    }
+  }
+
   useEffect(() => {
     if (!fetched || !songs) {
       getSong();
@@ -80,7 +89,7 @@ export default function Home() {
               </Link>
               :
               <Link href="/login">
-                <a className="bg-green-500 px-2.5 py-0.5 text-white rounded hover:bg-green-600 text-sm font-medium transition-all hover:cursor-pointer">Login</a>
+                <a className="bg-blue-500 px-2.5 py-0.5 text-white rounded hover:bg-blue-600 text-sm font-medium transition-all hover:cursor-pointer">Login</a>
               </Link>
             }
             <div onClick={() => setDarkMode(!darkMode)} className="transition-all cursor-pointer w-12 h-7 dark:bg-blue-500 bg-neutral-200 rounded-full relative">
@@ -88,30 +97,42 @@ export default function Home() {
             </div>
           </nav>
 
-          <h1 className="text-neutral-700 dark:text-gray-100 text-2xl font-bold">Song List</h1>
+          <div className="flex items-center justify-between">
+            <h1 className="text-neutral-700 dark:text-gray-100 text-2xl font-bold">Song List</h1>
+            {isLoggedIn &&
+              <Link href="/add-song">
+                <a className="bg-green-500 px-2.5 py-1 text-white rounded hover:bg-green-600 text-sm font-medium transition-all hover:cursor-pointer">Add Song</a>
+              </Link>
+            }
+          </div>
 
           <div className="mt-8">
             {fetched ?
               songs.map(song =>
-                <div key={song.id} className="border dark:border-neutral-800 rounded my-2">
-                  <Link href={`song/${song.id}`}>
-                    <div className="group">
-                      <div className="flex items-center gap-4 transition duration-300 hover:cursor-pointer">
-                        <div className="relative h-16 sm:h-24 w-16 sm:w-24">
-                          <Image
-                            alt={song.name}
-                            src={song.albumCoverUrl}
-                            className="rounded"
-                            layout='fill'
-                          />
-                        </div>
-                        <div className="p-2">
-                          <h2 className="text-md sm:text-lg font-medium dark:text-white text-neutral-800 mb-2 group-hover:text-blue-500 transition duration-300">{song.name}</h2>
-                          <p className="text-sm sm:text-base text-neutral-700 dark:text-gray-300">{song.artist.name}</p>
+                <div key={song.id}>
+                  <div className="border dark:border-neutral-800 rounded my-2">
+                    <Link href={`song/${song.id}`}>
+                      <div className="group">
+                        <div className="flex items-center gap-4 transition duration-300 hover:cursor-pointer">
+                          <div className="relative h-16 sm:h-24 w-16 sm:w-24">
+                            <Image
+                              alt={song.name}
+                              src={song.albumCoverUrl}
+                              className="rounded"
+                              layout='fill'
+                            />
+                          </div>
+                          <div className="p-2">
+                            <h2 className="text-md sm:text-lg font-medium dark:text-white text-neutral-800 mb-2 group-hover:text-blue-500 transition duration-300">{song.name}</h2>
+                            <p className="text-sm sm:text-base text-neutral-700 dark:text-gray-300">{song.artist.name}</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </Link>
+                    </Link>
+                  </div>
+                  {song.id > 15 && isLoggedIn &&
+                    <button onClick={() => deleteSong(song.id)} className="mb-2 text-white text-xs px-2 py-1 bg-red-500 hover:bg-red-600 transition-all rounded font-medium">Delete</button>
+                  }
                 </div>
               )
               :

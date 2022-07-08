@@ -86,7 +86,7 @@ export default function Artist() {
               </Link>
               :
               <Link href="/login">
-                <a className="bg-green-500 px-2.5 py-0.5 text-white rounded hover:bg-green-600 text-sm font-medium transition-all hover:cursor-pointer">Login</a>
+                <a className="bg-blue-500 px-2.5 py-0.5 text-white rounded hover:bg-blue-600 text-sm font-medium transition-all hover:cursor-pointer">Login</a>
               </Link>
             }
             <div onClick={() => setDarkMode(!darkMode)} className="transition-all cursor-pointer w-12 h-7 dark:bg-blue-500 bg-neutral-200 rounded-full relative">
