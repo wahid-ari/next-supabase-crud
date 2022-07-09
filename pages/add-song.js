@@ -142,10 +142,24 @@ export default function AddSong({ cookies }) {
             <Input onChange={handleChange} label="Name" name="name" placeholder="Name" type="text" />
             {error.name && <p className="text-red-500 text-center mb-2 text-xs font-medium">Name must not empty</p>}
 
-            <Input onChange={handleChange} label="Youtube URL (fuEdMCclYn0)" name="youtube" placeholder="Youtube URL" type="text" />
+            <Input onChange={handleChange} label="Youtube URL (fuEdMCclYn0)" name="youtube" placeholder="JRmBXQWzVEg" type="text" />
+            {input.youtube &&
+              <div className="mt-4">
+                <div className="h-60 sm:h-72 lg:h-80 mb-4">
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src={`https://www.youtube.com/embed/${input.youtube}`}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </div>
+              </div>
+            }
             {error.youtube && <p className="text-red-500 text-center mb-2 text-xs font-medium">Youtube must not empty</p>}
 
-            <Input onChange={handleChange} label="Image URL From Spotify (https://i.scdn.co/image/...)" name="image" placeholder="Image URL" type="text" />
+            <Input onChange={handleChange} label="Image URL From Spotify (https://i.scdn.co/image/...)" name="image" placeholder="https://i.scdn.co/image/ab67616d00001e02076747ead143aa3cd8c1d2f0" type="text" />
             {error.image && <p className="text-red-500 text-center mb-2 text-xs font-medium">Image URL must not empty</p>}
 
             {fetchedArtist ?
