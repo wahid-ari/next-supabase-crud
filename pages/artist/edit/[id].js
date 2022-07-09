@@ -133,10 +133,10 @@ export default function Artist({ cookies }) {
               <Input value={artist.name} onChange={handleChange} label="Name" name="name" placeholder="Name" type="text" />
               {error.name && <p className="text-red-500 text-center mb-2 text-xs font-medium">Name must not empty</p>}
 
-              <Input value={artist.genre} onChange={handleChange} label="Genre" name="genre" placeholder="Genre" type="text" />
+              <Input value={artist.genre} onChange={handleChange} label="Genre" name="genre" placeholder="Pop / Rock" type="text" />
               {error.genre && <p className="text-red-500 text-center mb-2 text-xs font-medium">Genre must not empty</p>}
 
-              <Input value={artist.coverUrl} onChange={handleChange} label="Image URL From Spotify (https://i.scdn.co/image/...)" name="coverUrl" placeholder="Image URL" type="text" />
+              <Input value={artist.coverUrl} onChange={handleChange} label="Image URL From Spotify (https://i.scdn.co/image/...)" name="coverUrl" placeholder="https://i.scdn.co/image/ab67616d00001e02076747ead143aa3cd8c1d2f0" type="text" />
               {error.image && <p className="text-red-500 text-center mb-2 text-xs font-medium">Image URL must not empty</p>}
 
               <Button onClick={handleSubmit} className="w-full mt-4">Save Artist</Button>
