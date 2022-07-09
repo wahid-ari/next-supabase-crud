@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { createClient } from '@supabase/supabase-js';
 import { supabase } from '@libs/Supabase';
 import SkeletonSongList from '@components/SkeletonSongList';
-import { parseCookies } from 'nookies';
+import nookies from 'nookies';
 
 // export async function getServerSideProps() {
 //   const supabaseAdmin = createClient(process.env.SUPABASE_URL || '', process.env.SUPABASE_ANON_KEY || '');
@@ -36,12 +36,22 @@ import { parseCookies } from 'nookies';
 //   };
 // }
 
+export async function getServerSideProps(context) {
+  // Parse
+  const cookies = nookies.get(context)
+
+  return {
+    props: {
+      cookies
+    }
+  }
+}
+
 // export default function Home({ songs }) {
-export default function Home() {
+export default function Home({ cookies }) {
   const { darkMode, setDarkMode } = useContext(GlobalContext);
   const [fetched, setFetched] = useState(false);
   const [songs, setSongs] = useState();
-  const cookies = parseCookies();
   const isLoggedIn = cookies.username ? true : false;
 
   async function getSong() {
@@ -131,7 +141,12 @@ export default function Home() {
                     </Link>
                   </div>
                   {song.id > 15 && isLoggedIn &&
-                    <button onClick={() => deleteSong(song.id)} className="mb-2 text-white text-xs px-2 py-1 bg-red-500 hover:bg-red-600 transition-all rounded font-medium">Delete</button>
+                    <>
+                      <Link href={`song/edit/${song.id}`}>
+                        <a className="text-white text-xs px-2 py-1 bg-blue-500 hover:bg-blue-600 transition-all rounded font-medium mr-2">Edit</a>
+                      </Link>
+                      <button onClick={() => deleteSong(song.id)} className="mb-2 text-white text-xs px-2 py-1 bg-red-500 hover:bg-red-600 transition-all rounded font-medium">Delete</button>
+                    </>
                   }
                 </div>
               )
