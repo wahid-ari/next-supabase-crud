@@ -127,8 +127,8 @@ export default function Artists() {
                               <h2 className="text-md sm:text-lg font-medium dark:text-white text-neutral-800 group-hover:text-blue-500 transition duration-300">{artist.name}</h2>
                               <p className="text-sm sm:text-base text-neutral-700 dark:text-gray-300 mt-1">{artist.genre}</p>
                             </div>
-                            <div className="">
-                              <p className="text-sm  text-neutral-700 dark:text-gray-300">{artist.song.length} song</p>
+                            <div className="flex items-end">
+                              <p className="text-sm text-neutral-700 dark:text-gray-300">{artist.song.length} song</p>
                             </div>
                           </div>
                         </div>
