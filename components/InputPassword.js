@@ -39,9 +39,9 @@ export default function InputPassword({ id, className, label, name, placeholder,
           className="z-10 mr-1.5 pr-1.5 pl-2.5 py-1 rounded-md absolute right-0"
         >
           {showPassword ?
-            <EyeIcon className="w-5 h-5" />
+            <EyeIcon className="w-5 h-5 text-gray-400 dark:text-neutral-600" />
             :
-            <EyeOffIcon className="w-5 h-5" />
+            <EyeOffIcon className="w-5 h-5 text-gray-400 dark:text-neutral-600" />
           }
         </button>
       </div>
