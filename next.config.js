@@ -3,6 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     domains: ["images.unsplash.com", "i.scdn.co"],
+    unoptimized: true,
   },
   env: {
     SUPABASE_URL: "https://lycnmgrucuhwifljiwsw.supabase.co",
